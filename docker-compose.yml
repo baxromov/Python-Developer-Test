@@ -1,0 +1,28 @@
+version: '3'
+services:
+  microservice:
+    container_name: microservice
+    build:
+      context: ./microservice
+      dockerfile: Dockerfile
+    depends_on:
+      - app
+    networks:
+      - dev-net
+  app:
+    container_name: app
+    build:
+      context: ./endpoint
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8001"
+    networks:
+      - dev-net
+
+volumes:
+  data:
+
+
+networks:
+  dev-net:
+    driver: bridge
